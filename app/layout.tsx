@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "IPMC DOCS",
   description: "BUILT BY ACID",
-  icon: '/icons/logo.svg'
+  // icon: '/icons/logo.svg'
 };
 
 export default function RootLayout({

@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react'
 export const metadata: Metadata = {
   title: "IPMC DOCS",
   description: "BUILT BY ACID",
-  icon: '/icons/logo.svg'
+  // icon: '/icons/logo.svg'
 };
 
 const HomeLayout = ({ children }: {children: ReactNode }) => {
