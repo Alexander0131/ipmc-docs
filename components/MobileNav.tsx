@@ -32,11 +32,10 @@ const pathname = usePathname();
             <SheetContent side={"left"} className='border-none bg-dark-1' >
             <Link href={"/"} className='flex items-center gap-1'>
             <Image 
-                src="/icons/logo.svg"
-                width={32}
+                src="/icons/logo.png"
+                width={55}
                 height={32}
                 alt='ipmc logo'
-                className='max-sm:size-10'
             />
             <p className='text-[26px] font-extrabold text-white'>IPMC</p>
         </Link>
