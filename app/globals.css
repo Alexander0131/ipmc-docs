@@ -7,7 +7,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+body{
+  width: 100%;
+}
 /* ======== stream css overrides ======== */
 .str-video__call-stats {
   max-width: 500px;
