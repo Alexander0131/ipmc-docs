@@ -36,7 +36,7 @@ export const useGetCalls = () => {
     };
 
     loadCalls();
-  }, [client, user?. username]);
+  }, [client, user?.id]);
 
   const now = new Date();
 
