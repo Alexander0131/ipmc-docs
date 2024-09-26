@@ -1,35 +1,39 @@
 import { useEffect, useState } from 'react';
-import { useUser } from '@clerk/nextjs';as
+import { useUser } from '@clerk/nextjs';
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 
 export const useGetCalls = () => {
   const { user } = useUser();
   const client = useStreamVideoClient();
-  const [calls, setCalls] = useState<Call[]>();
+  const [calls, setCalls] = useState<Call[]>([]); // Initialize as an empty array
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const loadCalls = async () => {
       if (!client || !user?.id) return;
-      
+
       setIsLoading(true);
 
       try {
-        // https://getstream.io/video/docs/react/guides/querying-calls/#filters
-        const { calls } = await client.queryCalls({
+        // Log the client and user to help with debugging
+        console.log('Client:', client);
+        console.log('User:', user);
+
+        // Fallback to user.id if user.username is not available
+        const { calls: fetchedCalls } = await client.queryCalls({
           sort: [{ field: 'starts_at', direction: -1 }],
           filter_conditions: {
             starts_at: { $exists: true },
             $or: [
-              { created_by_user_id: user.username },
-              { members: { $in: [user.username] } },
+              { created_by_user_id: user.username || user.id },
+              { members: { $in: [user.username || user.id] } },
             ],
           },
         });
 
-        setCalls(calls);
+        setCalls(fetchedCalls);
       } catch (error) {
-        console.error(error);
+        console.error('Error querying calls:', error, { user, client });
       } finally {
         setIsLoading(false);
       }
@@ -40,13 +44,13 @@ export const useGetCalls = () => {
 
   const now = new Date();
 
-  const endedCalls = calls?.filter(({ state: { startsAt, endedAt } }: Call) => {
-    return (startsAt && new Date(startsAt) < now) || !!endedAt
-  })
+  const endedCalls = calls.filter(({ state: { startsAt, endedAt } }: Call) => {
+    return (startsAt && new Date(startsAt) < now) || !!endedAt;
+  });
 
-  const upcomingCalls = calls?.filter(({ state: { startsAt } }: Call) => {
-    return startsAt && new Date(startsAt) > now
-  })
+  const upcomingCalls = calls.filter(({ state: { startsAt } }: Call) => {
+    return startsAt && new Date(startsAt) > now;
+  });
 
-  return { endedCalls, upcomingCalls, callRecordings: calls, isLoading }
+  return { endedCalls, upcomingCalls, callRecordings: calls, isLoading };
 };
