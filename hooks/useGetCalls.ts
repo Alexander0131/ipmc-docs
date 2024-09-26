@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+aimport { useEffect, useState } from 'react';
+import { useUser } from '@clerk/nextjs';as
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 
 export const useGetCalls = () => {
@@ -21,8 +21,8 @@ export const useGetCalls = () => {
           filter_conditions: {
             starts_at: { $exists: true },
             $or: [
-              { created_by_user_id: user.id },
-              { members: { $in: [user.id] } },
+              { created_by_user_id: user.username },
+              { members: { $in: [user.username] } },
             ],
           },
         });
@@ -36,7 +36,7 @@ export const useGetCalls = () => {
     };
 
     loadCalls();
-  }, [client, user?.id]);
+  }, [client, user?. username]);
 
   const now = new Date();
 
