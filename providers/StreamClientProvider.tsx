@@ -1,42 +1,38 @@
 'use client';
-import { StreamVideo, StreamVideoClient } from '@stream-io/video-react-sdk';
-import { ReactNode, useState, useEffect } from 'react'
+
+import { ReactNode, useEffect, useState } from 'react';
+import { StreamVideoClient, StreamVideo } from '@stream-io/video-react-sdk';
 import { useUser } from '@clerk/nextjs';
+
 import { tokenProvider } from '@/actions/stream.actions';
 import Loader from '@/components/Loader';
 
-  
-  const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
-  
-   const StreamVideoProvider = ({children}:{children: ReactNode}) => {
-    const [videoClient, setVideoClient] = useState<StreamVideoClient>();
+const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
+  const [videoClient, setVideoClient] = useState<StreamVideoClient>();
+  const { user, isLoaded } = useUser();
 
-    const { user, isLoaded } = useUser();
-    useEffect(() => {
-      if(!isLoaded || !user) return;
-      if(!apiKey) throw new Error('stream API key missing');
+  useEffect(() => {
+    if (!isLoaded || !user) return;
+    if (!API_KEY) throw new Error('Stream API key is missing');
 
-      const client = new StreamVideoClient({
-        apiKey,
-        user: {
-          id: user?.id,
-          name: user?.id || user?.id,
-          image: user?.imageUrl
-        },
-        tokenProvider
-      })
-      setVideoClient(client);
-    }, [user, isLoaded]);
+    const client = new StreamVideoClient({
+      apiKey: API_KEY,
+      user: {
+        id: user?.id,
+        name: user?.username || user?.id,
+        image: user?.imageUrl,
+      },
+      tokenProvider,
+    });
 
-    if(!videoClient) return <Loader />
+    setVideoClient(client);
+  }, [user, isLoaded]);
 
-    return (
-      <StreamVideo client={videoClient}>
-        {children}
-      </StreamVideo>
-    );
-  };
+  if (!videoClient) return <Loader />;
 
+  return <StreamVideo client={videoClient}>{children}</StreamVideo>;
+};
 
-  export default StreamVideoProvider;
+export default StreamVideoProvider;

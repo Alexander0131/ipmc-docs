@@ -1,3 +1,4 @@
+import HomeQnA from '@/components/HomeQnA';
 import Latest from '@/components/Latest';
 import MeetingTypeList from '@/components/MeetingTypeList';
 import React from 'react'
@@ -14,7 +15,7 @@ const Home = () => {
         <Latest/>
       <div className='h-[300px] w-full rounded-[20px] bg-hero bg-cover'>
         <div className='flex h-full flex-col justify-between max-md:px-5 max:py-8 p-5 lg:p-11 '>
-          <h2 className='glassmorphism max-w-[270px] rounded py-2 text-center text-base font-normal'>Upcoming Meeting at:12:30 PM</h2>
+          <h2></h2>
           <div className='flex flex-col gap-2'>
             <h1 className='text-4xl font-extrabold lg:text-7xl'>
               {time}
@@ -26,6 +27,7 @@ const Home = () => {
         </div>
       </div>
       <MeetingTypeList/>
+      <HomeQnA/>
     </section>
   )
 }

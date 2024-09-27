@@ -1,7 +1,7 @@
 export const post = [
     {
         "_id": "lwaeggsklljogs",
-        "desc": "Hello IPMC",
+        "desc": "Earn your diploma in IPMC",
         "reactable": true,
         "images": [
             {
