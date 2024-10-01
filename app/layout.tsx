@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "IPMC DOCS",
   description: "Video calling App",
   icons: {
-    icon: "/icons/logo.png",
+    icon: "/icons/logo-ipmc.png",
   },
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({
         appearance={{
           layout: {
             socialButtonsVariant: "iconButton",
-            logoImageUrl: "/icons/logo.png",
+            logoImageUrl: "/icons/logo-ipmc.png",
           },
           variables: {
             colorText: "#fff",
