@@ -1,9 +1,8 @@
-import HomeQnA from '@/components/HomeQnA';
 import Latest from '@/components/Latest';
 import MeetingTypeList from '@/components/MeetingTypeList';
-import React from 'react'
 
-const Home = () => {
+const Home = async () => {
+
 
   const now = new Date();
 
@@ -27,7 +26,6 @@ const Home = () => {
         </div>
       </div>
       <MeetingTypeList/>
-      <HomeQnA/>
     </section>
   )
 }

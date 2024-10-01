@@ -29,6 +29,7 @@ const MeetingTypeList = () => {
   const [callDetail, setCallDetail] = useState<Call>();
   const client = useStreamVideoClient();
   const { user } = useUser();
+  console.log(user)
   const { toast } = useToast();
 
   const createMeeting = async () => {
