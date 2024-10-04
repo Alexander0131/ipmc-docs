@@ -14,6 +14,7 @@ import ReactDatePicker from 'react-datepicker';
 import { useToast } from './ui/use-toast';
 import { Input } from './ui/input';
 
+
 const initialValues = {
   dateTime: new Date(),
   description: '',
@@ -29,9 +30,9 @@ const MeetingTypeList = () => {
   const [callDetail, setCallDetail] = useState<Call>();
   const client = useStreamVideoClient();
   const { user } = useUser();
-  console.log(user)
   const { toast } = useToast();
 
+  const userRole = user?.publicMetadata.role;
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
@@ -72,24 +73,28 @@ const MeetingTypeList = () => {
 
   return (
     <section className="flex gap-5 overflow-x-auto sm:flex-wrap sm:overflow-auto">
+      {userRole !== 'student' &&
       <HomeCard
-        img="/icons/add-meeting.svg"
-        title="New Meeting"
-        description="Start an instant meeting"
-        handleClick={() => setMeetingState('isInstantMeeting')}
+      img="/icons/add-meeting.svg"
+      title="New Meeting"
+      description="Start an instant meeting"
+      handleClick={() => setMeetingState('isInstantMeeting')}
       />
+    }
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
         description="via invitation link"
         handleClick={() => setMeetingState('isJoiningMeeting')}
       />
+      {userRole !== 'student' &&
       <HomeCard
         img="/icons/schedule.svg"
         title="Schedule Meeting"
         description="Plan your meeting"
         handleClick={() => setMeetingState('isScheduleMeeting')}
       />
+      }
       <HomeCard
         img="/icons/recordings.svg"
         title="View Recordings"

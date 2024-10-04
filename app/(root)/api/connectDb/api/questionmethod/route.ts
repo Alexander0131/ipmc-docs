@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { connectToDB } from '../../route';
+import { connectdb } from '../../route';
 import { ObjectId } from 'mongodb';
 
 
 
 export async function GET() {
   try {
-    const db = await connectToDB();
+    const db = await connectdb();
     if (!db) {
       return NextResponse.json({ error: 'Database connection failed' }, { status: 500 });
     }
@@ -30,15 +30,13 @@ export async function PUT(req: Request) {
   
 
   try {
-    const { _id, ...updateData } = await req.json(); // Parse JSON from the request body
-    console.log('ID:', _id); // Debugging log for ID
-    console.log('Update Data:', updateData); // Debugging log for update data
-
+    const { _id, ...updateData } = await req.json(); 
+    
     if (!_id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
 
-    const db = await connectToDB();
+    const db = await connectdb();
     if (!db) {
       return NextResponse.json({ error: 'Database connection failed' }, { status: 500 });
     }

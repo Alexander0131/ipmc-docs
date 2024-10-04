@@ -1,21 +1,22 @@
 import axios from "axios";
+import { User, userRole } from "./types/global";
 
-interface User {
-    id: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    email?: string;
-    imageUrl?: string; 
-    banned: boolean;
-    hasImage: boolean;
+
+
+
+
+// Add user role
+export const setUserRole = async (params?: userRole) => {
+    try {
+        const response = await axios.post('/api/account/role', params);
+        console.log(response.data);
+        return true;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 
-type SetItem = {
-    _id: string;
-    like: string[];
-  };
 
 export const fetchUsers = async (params?: string): Promise<User | User[] | undefined> => {
     try {
