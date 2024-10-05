@@ -11,7 +11,7 @@ export default function Latest() {
   const latestPost = post[post.length -1];
 
   return (
-    <div className='flex flex-col justify-items-center items-center w-full xl:max-w-[270px]'>
+    <div className='flex flex-col justify-items-center items-center w-full xl:max-w-[400px]'>
         <div key={latestPost._id} className='w-full flex  items-center flex-col justify-items-center relative'>
           <Swiper 
             autoplay={{

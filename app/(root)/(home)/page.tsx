@@ -1,8 +1,11 @@
 import Latest from '@/components/Latest';
 import MeetingTypeList from '@/components/MeetingTypeList';
+import YoutubeEmbed from '@/components/Youtube';
+// import { dbConnect } from '@/lib/mongodb';
+  
 
-
-const Home = () => {
+const Home = async () => {
+  // await dbConnect;
 
 
   const now = new Date();
@@ -10,8 +13,13 @@ const Home = () => {
   const date = new Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(now);
 
   return (
-    <section className='flex size-full flex-col gap-10 text-white w-full pb-10'>
-      <Latest />
+    <section className="flex flex-col  gap-10 pb-10 size-full text-white w-full">
+      <div className='flex flex-wrap items-center justify-center gap-5 w-full'>
+        <Latest />
+        <YoutubeEmbed 
+        videoId='v-RD1Tew-3Q?si=kjwjnGK5nSnb3-C9'
+        />
+        </div>
       <div className='h-[300px] w-full rounded-[20px] bg-hero bg-cover'>
         <div className='flex h-full flex-col justify-between max-md:px-5 max:py-8 p-5 lg:p-11 '>
           <h2></h2>

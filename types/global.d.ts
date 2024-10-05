@@ -27,7 +27,8 @@ export interface UserUpadateType{
     params: string[];
 }
 
-
-
+export interface YoutubeEmbedProps {
+  videoId: string;
+}
 
 
