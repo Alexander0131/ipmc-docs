@@ -1,3 +1,4 @@
+import CheckUser from '@/checkUserRole';
 import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
 import { Metadata } from 'next';
@@ -10,9 +11,12 @@ export const metadata: Metadata = {
 };
 
 const HomeLayout = ({ children }: {children: ReactNode }) => {
+
+  
   return (
     <main className='relative'>
         <Navbar />
+        <CheckUser/>
 
         <div className="flex">
             <Sidebar />

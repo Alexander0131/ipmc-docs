@@ -32,7 +32,11 @@ const MeetingTypeList = () => {
   const { user } = useUser();
   const { toast } = useToast();
 
+
+
   const userRole = user?.publicMetadata.role;
+
+  console.log({userRole})
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
@@ -71,9 +75,11 @@ const MeetingTypeList = () => {
 
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
 
+  
+
   return (
     <section className="flex gap-5 overflow-x-auto sm:flex-wrap sm:overflow-auto">
-      {userRole !== 'student' &&
+      {userRole === 'instructor'  || userRole === 'admin' || userRole === 'moderator' || userRole === 'prefect' &&
       <HomeCard
       img="/icons/add-meeting.svg"
       title="New Meeting"
@@ -87,7 +93,7 @@ const MeetingTypeList = () => {
         description="via invitation link"
         handleClick={() => setMeetingState('isJoiningMeeting')}
       />
-      {userRole !== 'student' &&
+      {userRole === 'instructor'  || userRole === 'admin' || userRole === 'moderator' || userRole === 'prefect' &&
       <HomeCard
         img="/icons/schedule.svg"
         title="Schedule Meeting"
