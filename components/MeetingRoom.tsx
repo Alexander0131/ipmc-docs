@@ -65,12 +65,12 @@ const MeetingRoom = () => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden pt-4 text-white flex items-center justify-center flex-col">
-      <div className='md:hidden relative w-[97%] rounded-[20px] flex items-center justify-between p-2 bg-dark-1'>
+      <div className='md:hidden fixed w-[97%] top-2 rounded-[20px] flex items-center justify-between p-2 bg-dark-1'>
       
 
         <div className='flex gap-3 items-center'>
           {showMbLog && 
-          <div className='flex gap-3'>
+          <div className='flex gap-3 overflow-x-auto'>
             <RecordCallButton/>
             <ReactionsButton/>
             <ScreenShareButton/>
@@ -105,6 +105,7 @@ const MeetingRoom = () => {
         }
          <Button
             className={`p-0 m-0 rounded-[50px] h-[32px] bg-red-700 transform transition-transform `}
+            onClick={() => changeShowState(!showMbLog)}
             >
           <Image
             src='/icons/circle-arrow-right-solid.svg'
@@ -114,15 +115,15 @@ const MeetingRoom = () => {
             className={`${
               showMbLog ? 'rotate-180' : 'rotate-0'
             }`}
-            onClick={() => changeShowState(!showMbLog)}
+            
             />
         </Button>
         </div>
         <CancelCallButton onLeave={() => router.push(`/`)}/>
     
       </div>
-      <div className="relative flex size-full items-center justify-center">
-        <div className="flex size-full max-w-[1000px] items-center">
+      <div className="relative flex size-full items-center justify-center w-full h-[80vh]">
+        <div className="flex size-full max-w-[1000px] items-center justify-center w-[98%]">
           <CallLayout />
         </div>
         <div
@@ -133,13 +134,14 @@ const MeetingRoom = () => {
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
       </div>
-      {/* video layout and call controls */}
-      <div className='flex w-full'>
+      
+      <div className='hidden md:flex w-full fixed bottom-[20px] items-center justify-center'>
 
-      <div className="fixed bottom-[40px] w-full  items-center justify-center hidden md:flex">
+      <div className="">
         <CallControls onLeave={() => router.push(`/`)} />
           </div>
-          <div className='fixed bottom-[5px] items-center justify-center gap-5 w-full hidden md:flex'>
+
+          <div className='flex items-center justify-center'>
         <DropdownMenu>
           <div className="flex items-center">
             <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]  ">
@@ -170,7 +172,9 @@ const MeetingRoom = () => {
         {!isPersonalRoom && <EndCallButton />}
       </div>
       </div>
-      <div className='flex items-center justify-center gap-2 md:hidden'>
+
+
+      <div className='flex fixed bottom-3 items-center justify-center gap-2 md:hidden'>
             <ToggleVideoPreviewButton/>
             {!isPersonalRoom && <EndCallButton />}
             <ToggleAudioPreviewButton/>
