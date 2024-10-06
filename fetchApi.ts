@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User, userRole } from "./types/global";
+import { UpcomingTypeIn, User, userRole } from "./types/global";
 
 
 
@@ -16,31 +16,53 @@ export const setUserRole = async (params?: userRole) => {
     }
 }
 
+// get Upcoming meetings
+export const getMeetings = async (params: string) => {
+    try {
+         const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting?q=${params}`);
 
+    return res.data;
+    } catch (error) {
+        console.log(error) 
+    }
+   
+}
 
-// export const fetchUsers = async (params?: string): Promise<User | User[] | undefined> => {
-//     try {
-//         const response = await fetch('/api/fetchusers');
-//         if (!response.ok) {
-//             const errorText = await response.text(); 
-//             console.error(`Error response from API: ${errorText}`); 
-//             return;
-//         }
+// Post upcoming meetings
+export const postMeeting = async (params?: UpcomingTypeIn): Promise<UpcomingTypeIn | UpcomingTypeIn[] | undefined> => {
+    try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, params);
+
+        return response.data
+        
+    } catch (error) {
+        
+    }
+}
+
+// get Users
+ export const fetchUsers = async (params?: string): Promise<User | User[] | undefined> => {
+     try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchusers`);
+        if (!response.ok) {
+            const errorText = await response.text(); 
+            console.error(`Error response from API: ${errorText}`); 
+            return;
+        }
         
       
-//         const data: User[] = await response.json();
+        const data: User[] = await response.json();
 
-//         console.log(data)
         
-//         if (params) {
-//             return data.find((item: User) => item.id === params); 
-//         }
+        if (params) {
+            return data.find((item: User) => item.id === params); 
+        }
        
-//         return data;
-//     } catch (error) {
-//         console.error('Error fetching users:', error);
-//     }
-// };
+        return data;
+    } catch (error) {
+         
+    }
+};
 
 
 // // Fetch Questions from api

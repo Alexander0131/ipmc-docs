@@ -73,6 +73,19 @@ const Welcome = () => {
             </Button>
             <Button 
               className='flex gap-3 min-w-[100px]'
+              onClick={() => setRole('moderator')}
+            >
+              MODERATOR
+
+              <Image
+                src={'/icons/arrow-left.svg'}
+                width={20}
+                height={20}
+                alt='arrow'
+              />
+            </Button>
+            <Button 
+              className='flex gap-3 min-w-[100px]'
               onClick={() => setRole('student')}
             >
               STUDENT

@@ -1,3 +1,4 @@
+
 // set role
 export type Roles = 'instructor' | 'student' | 'prefect' | 'moderator' | 'admin';
 
@@ -21,6 +22,26 @@ export interface User {
     banned: boolean;
     hasImage: boolean;
 }
+export interface UpcomingType {
+  _id:string;
+  creatorId: string;
+  time: string;
+  description: string;
+  image : string;
+  creatorName: string;
+  meetingId: string;
+  state: string;
+}
+
+export interface UpcomingTypeIn {
+  creatorId: string | null;
+  time: string;
+  description: string;
+  image : string | null;
+  creatorName: string | null;
+  meetingId: string;
+  state: string;
+}
 
 export interface UserUpadateType{
     id: string;
@@ -32,3 +53,8 @@ export interface YoutubeEmbedProps {
 }
 
 
+// MiniProfile 
+
+export interface MiniProfileProps {
+  userId: string; // Define userId as a string
+}

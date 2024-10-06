@@ -13,6 +13,8 @@ import { Textarea } from './ui/textarea';
 import ReactDatePicker from 'react-datepicker';
 import { useToast } from './ui/use-toast';
 import { Input } from './ui/input';
+import { UpcomingTypeIn } from '@/types/global';
+import { postMeeting } from '@/fetchApi';
 
 
 const initialValues = {
@@ -34,9 +36,9 @@ const MeetingTypeList = () => {
 
 
 
-  const userRole = user?.publicMetadata.role;
+  const userRole: string = String(user?.publicMetadata.role);
 
-  console.log({userRole})
+  console.log(user?.publicMetadata.role)
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
@@ -46,10 +48,27 @@ const MeetingTypeList = () => {
       }
       const id = crypto.randomUUID();
       const call = client.call('default', id);
+      // passing this Id ot db
       if (!call) throw new Error('Failed to create meeting');
       const startsAt =
         values.dateTime.toISOString() || new Date(Date.now()).toISOString();
+        // passing time to db 
+
       const description = values.description || 'Instant Meeting';
+      // Passing this desc to db
+
+      const upcomingdataValue: UpcomingTypeIn = {
+        creatorId: user?.id,
+        time: startsAt,
+        description,
+        image: user?.imageUrl,
+        creatorName: user?.fullName || user?.username,
+        meetingId: id,
+        state: "upcoming"
+      }
+      postMeeting(upcomingdataValue);
+
+
       await call.getOrCreate({
         data: {
           starts_at: startsAt,
@@ -79,7 +98,7 @@ const MeetingTypeList = () => {
 
   return (
     <section className="flex gap-5 overflow-x-auto sm:flex-wrap sm:overflow-auto">
-      {userRole === 'instructor'  || userRole === 'admin' || userRole === 'moderator' || userRole === 'prefect' &&
+      {userRole !== 'student' &&
       <HomeCard
       img="/icons/add-meeting.svg"
       title="New Meeting"
@@ -93,7 +112,7 @@ const MeetingTypeList = () => {
         description="via invitation link"
         handleClick={() => setMeetingState('isJoiningMeeting')}
       />
-      {userRole === 'instructor'  || userRole === 'admin' || userRole === 'moderator' || userRole === 'prefect' &&
+      {userRole !== 'student' &&
       <HomeCard
         img="/icons/schedule.svg"
         title="Schedule Meeting"
