@@ -39,7 +39,7 @@ console.log(meetingData)
       {meetingData.map((item: UpcomingType) =>  (
         <div key={item._id} className="flex min-h-[258px] w-[96%] max-w-[450px] ml-5 flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
-       <MiniProfile userId={item.creatorId}/>
+       <MiniProfile userId={item.creatorId} height={50} width={50}/>
         <div className="flex justify-between">
           <div className="flex flex-col gap-2">
               <h1 className="capitalize">{item.description}</h1>
@@ -52,7 +52,7 @@ console.log(meetingData)
         </div>
        ))}
        {meetingData.length < 0 &&
-       <div>There's no upcoming meeting...</div>
+       <div>There is no upcoming meeting...</div>
       }
 
     </section>

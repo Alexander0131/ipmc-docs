@@ -56,5 +56,7 @@ export interface YoutubeEmbedProps {
 // MiniProfile 
 
 export interface MiniProfileProps {
-  userId: string; // Define userId as a string
+  userId: string; 
+  height: number;
+  width: number;
 }

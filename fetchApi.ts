@@ -40,6 +40,18 @@ export const postMeeting = async (params?: UpcomingTypeIn): Promise<UpcomingType
     }
 }
 
+
+// change meeting state
+export const changeMeetingState = async (params: string) => {
+    try {
+        const response = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, {state: params})
+        console.log(response.data);
+    } catch (error) {
+        
+    }
+}
+
+
 // get Users
  export const fetchUsers = async (params?: string): Promise<User | User[] | undefined> => {
      try {

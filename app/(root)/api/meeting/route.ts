@@ -47,11 +47,28 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     NextResponse.json({error}, {status: 500})
      }
-
-
-
 }
 
+// Put method
+
+export async function PUT(req: NextRequest) {
+  await connectMongoDB();
+
+  try {
+    const { meetingId, ...updateData }: IMeeting = await req.json();
+
+    // Update the meeting in the database
+    const updatedMeeting = await Meeting.findByIdAndUpdate(meetingId, updateData, { new: true });
+
+    if (!updatedMeeting) {
+      return NextResponse.json({ error: 'Meeting not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedMeeting);
+  } catch (error) {
+    return NextResponse.json({ error: "error" }, { status: 500 });
+  }
+}
 
 
 
