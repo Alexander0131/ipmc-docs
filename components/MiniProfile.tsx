@@ -37,7 +37,7 @@ const MiniProfile: React.FC<MiniProfileProps> = ({ userId, height, width }) => {
     <div>
       <div className="flex items-center gap-2">
         <Image
-          src={thisUser.imageUrl}
+          src={String(thisUser.imageUrl)}
           alt={thisUser.username}
           height={height}
           width={width}
