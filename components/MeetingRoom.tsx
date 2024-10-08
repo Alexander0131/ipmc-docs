@@ -31,6 +31,7 @@ import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
 import Image from 'next/image';
 import { changeMeetingState } from '@/fetchApi';
+import { editMeetingState } from '@/types/global';
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
 
@@ -45,12 +46,22 @@ const MeetingRoom = () => {
 
   const callingState = useCallCallingState();
 
+
+
   if (callingState !== CallingState.JOINED) return <Loader />;
 
+  const getMeetingIdRaw = window.location.href;
+  const getMeetingIdSlashed = getMeetingIdRaw.split("/");
+  const getMeetingId = getMeetingIdSlashed[getMeetingIdSlashed.length -1]
+  
   async function stopMeeting() {
     if(!isPersonalRoom){
       console.log("in my room")
-      await changeMeetingState('ended');
+      const changeState: editMeetingState = {
+        meetingId: getMeetingId!,
+        state: 'ended'
+      }
+      await changeMeetingState(changeState);
     }
   }
 
@@ -127,7 +138,7 @@ const MeetingRoom = () => {
             />
         </Button>
         </div>
-        <CancelCallButton  onClick={() => stopMeeting()} onLeave={() => router.push(`/`)}/>
+        <CancelCallButton  onClick={() => stopMeeting()}/>
     
       </div>
       <div className="relative flex size-full items-center justify-center w-full h-[80vh]">

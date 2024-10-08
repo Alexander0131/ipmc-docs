@@ -13,7 +13,7 @@ import { Textarea } from './ui/textarea';
 import ReactDatePicker from 'react-datepicker';
 import { useToast } from './ui/use-toast';
 import { Input } from './ui/input';
-import { UpcomingTypeIn } from '@/types/global';
+import { UpcomingType } from '@/types/global';
 import { postMeeting } from '@/fetchApi';
 
 
@@ -55,20 +55,8 @@ const MeetingTypeList = () => {
         // passing time to db 
 
       const description = values.description || 'Instant Meeting';
-      // Passing this desc to db
-
-      const upcomingdataValue: UpcomingTypeIn = {
-        creatorId: user?.id,
-        time: startsAt,
-        description,
-        image: user?.imageUrl,
-        creatorName: user?.fullName || user?.username,
-        meetingId: id,
-        state: "upcoming"
-      }
-      postMeeting(upcomingdataValue);
-
-
+      
+      
       await call.getOrCreate({
         data: {
           starts_at: startsAt,
@@ -79,7 +67,24 @@ const MeetingTypeList = () => {
       });
       setCallDetail(call);
       if (!values.description) {
-        router.push(`/meeting/${call.id}`);
+        setTimeout(() => {
+
+          router.push(`/meeting/${call.id}`);
+          
+        },2000)
+        // Passing this desc to db
+        
+        const upcomingdataValue: UpcomingType = {
+          meetingId: call.id,
+          creatorId: user?.id,
+          time: startsAt,
+          description,
+          image: user?.imageUrl,
+          creatorName: user?.fullName! || user?.username!,
+          state: "upcoming"
+        }
+        postMeeting(upcomingdataValue);
+        
       }
       toast({
         title: 'Meeting Created',

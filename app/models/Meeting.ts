@@ -1,16 +1,24 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IMeeting extends Document {
+    meetingId: Schema.Types.ObjectId;
     creatorId: string;
     time: string;
     description: string;
     image: string;
     creatorName: string;
-    meetingId: string;
     state: string;
 } 
 
 const uploadSchema: Schema = new mongoose.Schema({
+    meetingId: {
+        type: Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+        required: true,
+        unique:true,
+        key: true,
+        index: true,
+    },
     creatorId: {
         type: String,
         required: true,
@@ -30,10 +38,6 @@ const uploadSchema: Schema = new mongoose.Schema({
     creatorName: {
         type: String,
         required: true,
-    },
-    meetingId: {
-        type: String,
-        required: true
     },
     state: {
         type: String,

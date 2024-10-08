@@ -23,25 +23,15 @@ export interface User {
     hasImage: boolean;
 }
 export interface UpcomingType {
-  _id:string;
+  meetingId:string;
   creatorId: string;
   time: string;
   description: string;
   image : string;
   creatorName: string;
-  meetingId: string;
   state: string;
 }
 
-export interface UpcomingTypeIn {
-  creatorId: string | null;
-  time: string;
-  description: string;
-  image : string | null;
-  creatorName: string | null;
-  meetingId: string;
-  state: string;
-}
 
 export interface UserUpadateType{
     id: string;
@@ -50,6 +40,12 @@ export interface UserUpadateType{
 
 export interface YoutubeEmbedProps {
   videoId: string;
+}
+
+// 
+export interface editMeetingState {
+  meetingId: string;
+  state: string
 }
 
 

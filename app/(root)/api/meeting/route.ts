@@ -10,7 +10,7 @@ export async function GET(req: NextRequest){
     try {
       const meetings = await Meeting.find({state: getTheState});
 
-      return NextResponse.json({meetings})
+      return NextResponse.json(meetings);
     } catch (err: any) {
         NextResponse.json({error: err.message});
     }
@@ -18,35 +18,41 @@ export async function GET(req: NextRequest){
 }
 
 // Post method
-
 export async function POST(req: NextRequest) {
   await connectMongoDB();
 
-    try {
-      const { creatorId, time, description, image, creatorName, meetingId, state}: IMeeting = await req.json();
-  
+  try {
+    // Read the request body once
+    const body = await req.json();
+    console.log(body);
+
+    const { meetingId, creatorId, time, description, image, creatorName, state }: IMeeting = body;
 
     // Create post with uploaded image URL
     const postData = {
+      meetingId,
       creatorId, 
       time, 
       description, 
       image, 
       creatorName, 
-      meetingId,
       state
     };
 
-    console.log(postData)
+    console.log(postData);
 
     // Save post data to database
     const createdPost = await Meeting.create(postData);
 
-    return NextResponse.json(createdPost);
+    if (!createdPost) {
+      return NextResponse.json({ error: "Post not created" }, { status: 400 });
+    }
 
+    return NextResponse.json(createdPost);
   } catch (error) {
-    NextResponse.json({error}, {status: 500})
-     }
+    console.error(error); // Log the error for debugging
+    return NextResponse.json({ error: 'message' }, { status: 500 });
+  }
 }
 
 // Put method
@@ -55,10 +61,14 @@ export async function PUT(req: NextRequest) {
   await connectMongoDB();
 
   try {
-    const { meetingId, ...updateData }: IMeeting = await req.json();
+    const body = await req.json();
+    const { _id, state }: { _id: string; state: string } = body;
 
-    // Update the meeting in the database
-    const updatedMeeting = await Meeting.findByIdAndUpdate(meetingId, updateData, { new: true });
+    const updatedMeeting = await Meeting.findByIdAndUpdate(
+      _id,
+      { state },
+      { new: true }
+    );
 
     if (!updatedMeeting) {
       return NextResponse.json({ error: 'Meeting not found' }, { status: 404 });
@@ -66,10 +76,10 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(updatedMeeting);
   } catch (error) {
+    console.log(error)
     return NextResponse.json({ error: "error" }, { status: 500 });
   }
 }
-
 
 
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UpcomingTypeIn, User, userRole } from "./types/global";
+import { editMeetingState, UpcomingType, User, userRole } from "./types/global";
 
 
 
@@ -21,6 +21,7 @@ export const getMeetings = async (params: string) => {
     try {
          const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting?q=${params}`);
 
+         console.log(res.data)
     return res.data;
     } catch (error) {
         console.log(error) 
@@ -29,12 +30,24 @@ export const getMeetings = async (params: string) => {
 }
 
 // Post upcoming meetings
-export const postMeeting = async (params?: UpcomingTypeIn): Promise<UpcomingTypeIn | UpcomingTypeIn[] | undefined> => {
+export const postMeeting = async (params?: UpcomingType): Promise<UpcomingType | UpcomingType[] | undefined> => {
     try {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, params);
+        console.log("trying")
+        if(params){
+            console.log("tried")
+            const userIdRaw = await getMeetings('upcoming');
+            console.log(userIdRaw)
+            const userId = await userIdRaw.find((item: UpcomingType) => item.meetingId === params.meetingId);
+            console.log({userId})
 
-        return response.data
-        
+            if(!userId){
+                // console.log("No one like this")
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, params);
+                // window.location.href = `/meeting/${params.meetingId};`
+                return response.data
+            }
+            
+        }
     } catch (error) {
         
     }
@@ -42,10 +55,18 @@ export const postMeeting = async (params?: UpcomingTypeIn): Promise<UpcomingType
 
 
 // change meeting state
-export const changeMeetingState = async (params: string) => {
+export const changeMeetingState = async (params: editMeetingState) => {
+
     try {
-        const response = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, {state: params})
+        // get the post id first
+        const userIdRaw = await getMeetings('upcoming');
+        const userId = await userIdRaw.find((item: UpcomingType) => item.meetingId === params.meetingId);
+        const reParams = {_id: userId._id, state: params.state};
+        console.log({reParams})
+
+        const response = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, reParams)
         console.log(response.data);
+    window.location.href ="/"
     } catch (error) {
         
     }

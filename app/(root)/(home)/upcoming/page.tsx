@@ -6,7 +6,7 @@ import { UpcomingType } from "@/types/global";
 const UpcomingPage = async () => {
 const MeetingRaw = await getMeetings('upcoming');
 
-const meetingData = MeetingRaw.meetings;
+const meetingData = MeetingRaw;
 
 // set Date
 function setDate(params: string){
@@ -37,7 +37,7 @@ console.log(meetingData)
       {/* <CallList type="upcoming" /> */}
 
       {meetingData.map((item: UpcomingType) =>  (
-        <div key={item._id} className="flex min-h-[258px] w-[96%] max-w-[450px] ml-5 flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
+        <div key={item.meetingId} className="flex min-h-[258px] w-[96%] max-w-[450px] ml-5 flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
        <MiniProfile userId={item.creatorId} height={50} width={50}/>
         <div className="flex justify-between">
@@ -51,7 +51,7 @@ console.log(meetingData)
       </article>
         </div>
        ))}
-       {meetingData.length < 0 &&
+       {meetingData.length <= 0 &&
        <div>There is no upcoming meeting...</div>
       }
 
