@@ -36,7 +36,7 @@ console.log(meetingData)
 
       {/* <CallList type="upcoming" /> */}
 
-      {meetingData.map((item: UpcomingType) =>  (
+      {MeetingRaw && meetingData.map((item: UpcomingType) =>  (
         <div key={item.meetingId} className="flex min-h-[258px] w-[96%] max-w-[450px] ml-5 flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
        <MiniProfile userId={item.creatorId} height={50} width={50}/>
@@ -51,7 +51,7 @@ console.log(meetingData)
       </article>
         </div>
        ))}
-       {meetingData.length <= 0 &&
+       {meetingData.length < 0 &&
        <div>There is no upcoming meeting...</div>
       }
 

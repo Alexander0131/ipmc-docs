@@ -24,8 +24,6 @@ export async function POST(req: NextRequest) {
   try {
     // Read the request body once
     const body = await req.json();
-    console.log(body);
-
     const { meetingId, creatorId, time, description, image, creatorName, state }: IMeeting = body;
 
     // Create post with uploaded image URL
