@@ -51,8 +51,10 @@ console.log(meetingData)
       </article>
         </div>
        ))}
-       {meetingData.length < 0 &&
+       {MeetingRaw ? meetingData.length < 0 &&
        <div>There is no upcoming meeting...</div>
+       :
+       <div>There is no upcoming meeting</div>
       }
 
     </section>
