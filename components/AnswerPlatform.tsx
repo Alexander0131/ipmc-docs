@@ -1,5 +1,5 @@
 "use client";
-import { answerArray, IAnswer } from '@/app/models/Answers';
+import { answerArray } from '@/app/models/Answers';
 import { getAnswer, likeAnAns, postAnAns, postNewAns } from '@/fetchApi';
 import { AnswerDisType, AnswerPlatformType } from '@/types/global';
 import Image from 'next/image';
