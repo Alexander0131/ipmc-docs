@@ -38,7 +38,6 @@ const MeetingTypeList = () => {
 
   const userRole: string = String(user?.publicMetadata.role);
 
-  console.log(user?.publicMetadata.role)
   const createMeeting = async () => {
     if (!client || !user) return;
     try {

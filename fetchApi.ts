@@ -1,5 +1,6 @@
 import axios from "axios";
-import { editMeetingState, UpcomingType, User, userRole } from "./types/global";
+import { editMeetingState, likeType, UpcomingType, User, userRole } from "./types/global";
+import { answerArray } from "./app/models/Answers";
 
 
 
@@ -66,6 +67,7 @@ export const changeMeetingState = async (params: editMeetingState) => {
 
         const response = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`, reParams)
         console.log(response.data);
+
     window.location.href ="/"
     } catch (error) {
         
@@ -98,15 +100,64 @@ export const changeMeetingState = async (params: editMeetingState) => {
 };
 
 
-// // Fetch Questions from api
-// export const fetchAllQuetions = async () => {
-//     try {
-//         const fetchAllQuetionsData = await axios.get('/api/connectDb/api/questionmethod');
-//         return fetchAllQuetionsData.data;
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+// Fetch Questions from api
+export const getHomeQuetions = async () => {
+    try {
+        const fetchAllQuetionsData = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/question/home`);
+        return fetchAllQuetionsData.data.reverse();
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// fetch an answer from api
+export const getAnswer = async (params: string) => {
+    try {
+        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer?q=${params}`);
+
+        return resData.data;
+    } catch (error) {
+        return null
+    }
+}
+
+// like a question
+export async function likeAnAns(params: likeType){
+    try {
+        const resData = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer/like`, params);
+        console.log(resData);
+    } catch (error) {
+        
+    }
+}
+
+
+// ans a question
+export async function postNewAns(paramId: string, params: answerArray){
+    console.log(params)
+    const setData = {
+        questionId: paramId,
+        answers: params
+    }
+    try {
+        const resData = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer`, setData);
+        console.log(resData);
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+export async function postAnAns(params: likeType){
+    console.log(params)
+    try {
+        const resData = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer`, params);
+        console.log(resData);
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 // // like a question

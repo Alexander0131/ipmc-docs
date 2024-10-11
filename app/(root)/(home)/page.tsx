@@ -1,11 +1,10 @@
+import HomeQuest from '@/components/HomeQuest';
 import Latest from '@/components/Latest';
 import MeetingTypeList from '@/components/MeetingTypeList';
 import YoutubeEmbed from '@/components/Youtube';
-// import { dbConnect } from '@/lib/mongodb';
   
 
 const Home = async () => {
-  // await dbConnect;
 
   
 
@@ -31,6 +30,8 @@ const Home = async () => {
         </div>
       </div>
       <MeetingTypeList />
+
+      <HomeQuest />
     </section>
   );
 };

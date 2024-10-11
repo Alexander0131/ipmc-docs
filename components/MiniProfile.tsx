@@ -1,38 +1,48 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '@/fetchApi';
 import { MiniProfileProps, User } from '@/types/global';
 import Image from 'next/image';
-import Loader from './Loader';
 
 const MiniProfile: React.FC<MiniProfileProps> = ({ userId, height, width }) => {
   const [thisUser, setThisUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const getUser = async () => {
-      const user = await fetchUsers(userId);
-      if (Array.isArray(user) || user === undefined) {
-        setThisUser(null); 
-      } else {
-        setThisUser(user); 
+      setLoading(true);
+      try {
+        const user = await fetchUsers(userId);
+
+        // Check for array or undefined return values
+        if (!user || Array.isArray(user)) {
+          setThisUser(null);
+        } else {
+          setThisUser(user); // Ensure valid user object
+        }
+      } catch (error) {
+        console.error("Failed to fetch user", error);
+        setThisUser(null);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
 
-    getUser();
+    // Call getUser if userId is valid
+    if (userId) {
+      getUser();
+    }
   }, [userId]);
 
   if (loading) {
-    return <Loader />;
+    return;
   }
 
   if (!thisUser) {
     return <div>User not found</div>;
   }
+
   return (
     <div>
       <div className="flex items-center gap-2">
@@ -43,9 +53,14 @@ const MiniProfile: React.FC<MiniProfileProps> = ({ userId, height, width }) => {
           width={width}
           className="rounded-[50px]"
         />
-        <h1 className="text-2xl font-bold capitalize">{thisUser.lastName && thisUser.firstName ? thisUser.firstName + thisUser.lastName : thisUser.username}</h1>
+        <h2 className="font-bold capitalize">
+          {thisUser.firstName && thisUser.lastName 
+            ? `${thisUser.firstName} ${thisUser.lastName}` 
+            : thisUser.username}
+        </h2>
       </div>
     </div>
   );
 };
+
 export default MiniProfile;

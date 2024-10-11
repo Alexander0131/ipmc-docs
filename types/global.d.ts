@@ -1,3 +1,4 @@
+import { answerArray } from "@/app/models/Answers";
 
 // set role
 export type Roles = 'instructor' | 'student' | 'prefect' | 'moderator' | 'admin';
@@ -55,4 +56,36 @@ export interface MiniProfileProps {
   userId: string; 
   height: number;
   width: number;
+}
+
+export interface HomeQuests {
+  _id: string;
+  asker: string;
+  answerId: string;
+  question: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AnswerPlatformType {
+  ansId: string;
+  mainId: string;
+
+}
+
+export interface IAnswerOut extends Document {
+  questionId: string;
+  answers: answerArray
+}
+
+export interface AnswerDisType {
+  questionId: string;
+  answers: answerArray;
+  createdAt: string;
+}
+
+// like a question
+export interface likeType {
+  id: string;
+  params: answerArray;
 }

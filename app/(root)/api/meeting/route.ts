@@ -48,7 +48,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(createdPost);
   } catch (error) {
-    console.error(error); // Log the error for debugging
     return NextResponse.json({ error: 'message' }, { status: 500 });
   }
 }
