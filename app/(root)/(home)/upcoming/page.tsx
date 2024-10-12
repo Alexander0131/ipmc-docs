@@ -1,13 +1,22 @@
+"use client"
 import MiniProfile from "@/components/MiniProfile";
 import { getMeetings } from "@/fetchApi";
 import { UpcomingType } from "@/types/global";
+import { useEffect, useState } from "react";
 
 
-const UpcomingPage = async () => {
-const MeetingRaw = await getMeetings('upcoming');
+const UpcomingPage =  () => {
+  const [meetingData, setMeetingData] = useState<UpcomingType[] | null>(null);
 
-const meetingData = MeetingRaw;
-
+  useEffect(() => {
+    async function getData() {
+      
+      const MeetingRaw = await getMeetings('upcoming');
+      setMeetingData(MeetingRaw)
+      
+    }
+    getData();
+  }, [])
 // set Date
 function setDate(params: string){
   const timeRaw = params.split("T")[1];
@@ -36,7 +45,7 @@ console.log(meetingData)
 
       {/* <CallList type="upcoming" /> */}
 
-      {MeetingRaw && meetingData.map((item: UpcomingType) =>  (
+      {meetingData && meetingData.map((item: UpcomingType) =>  (
         <div key={item.meetingId} className="flex min-h-[258px] w-[96%] max-w-[450px] ml-5 flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
        <MiniProfile userId={item.creatorId} height={50} width={50}/>
@@ -51,7 +60,7 @@ console.log(meetingData)
       </article>
         </div>
        ))}
-       {MeetingRaw ? meetingData.length < 0 &&
+       {meetingData ? meetingData.length < 0 &&
        <div>There is no upcoming meeting...</div>
        :
        <div>There is no upcoming meeting</div>
