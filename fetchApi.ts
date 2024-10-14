@@ -32,6 +32,7 @@ export const getMeetings = async (params: string) => {
 
 // Post upcoming meetings
 export const postMeeting = async (params?: UpcomingType): Promise<UpcomingType | UpcomingType[] | undefined> => {
+    console.log({params})
     try {
         console.log("trying")
         if(params){

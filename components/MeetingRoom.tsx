@@ -57,6 +57,7 @@ const MeetingRoom = () => {
   async function stopMeeting() {
     if(!isPersonalRoom){
       console.log("in my room")
+      console.log(isPersonalRoom)
       const changeState: editMeetingState = {
         meetingId: getMeetingId!,
         state: 'ended'

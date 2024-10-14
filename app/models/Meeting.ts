@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IMeeting extends Document {
-    meetingId: Schema.Types.ObjectId;
+    meetingId: string;
     creatorId: string;
     time: string;
     description: string;
@@ -12,12 +12,8 @@ export interface IMeeting extends Document {
 
 const uploadSchema: Schema = new mongoose.Schema({
     meetingId: {
-        type: Schema.Types.ObjectId,
-        default: () => new mongoose.Types.ObjectId(),
-        required: true,
-        unique:true,
-        key: true,
-        index: true,
+        type: String,
+        required: true
     },
     creatorId: {
         type: String,

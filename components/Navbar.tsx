@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { SignedIn, UserButton } from '@clerk/nextjs';
 
 import MobileNav from './MobileNav';
+import AddItem from './AddItem';
 
 const Navbar = () => {
   return (
@@ -18,7 +19,8 @@ const Navbar = () => {
           IPMC DOCS
         </p>
       </Link>
-      <div className="flex-between gap-5">
+      <div className="flex-between gap-2 relative">
+        <AddItem />
         <SignedIn>
           <UserButton afterSignOutUrl="/sign-in" />
         </SignedIn>
