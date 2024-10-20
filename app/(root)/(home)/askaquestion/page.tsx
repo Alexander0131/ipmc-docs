@@ -1,7 +1,7 @@
 'use client'
 import { EditorProps } from '@/types/global';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css'; // Ensure styles are loaded correctly
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
