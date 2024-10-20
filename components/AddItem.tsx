@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 import { useUser } from '@clerk/nextjs';
 import MeetingTypeList from './MeetingTypeList';
 
-
+ 
 const AddItem = () => {
     const [openState, setOpenState] =  useState(false);
     const { user } = useUser();
