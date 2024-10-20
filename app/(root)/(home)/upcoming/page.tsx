@@ -48,7 +48,16 @@ console.log(meetingData)
       {meetingData && meetingData.map((item: UpcomingType) =>  (
         <div key={item.meetingId}  className="flex min-h-[258px] w-[96%] max-w-[450px] ml-5 flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
-       <MiniProfile userId={item.creatorId} height={50} width={50}/>
+       <MiniProfile 
+          userId={item.creatorId} 
+          height={50} 
+          width={50}
+          username={true} 
+          liveState={true} 
+          img={true}
+          textStyles={''}
+
+          />
         <div className="flex justify-between">
           <div className="flex flex-col gap-2">
               <h1 className="capitalize">{item.description}</h1>
