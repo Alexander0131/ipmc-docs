@@ -1,19 +1,18 @@
-"use client"
+'use client'
 import Image from 'next/image';
 import React, { useState } from 'react';
 import AddModal from './AddModal';
 import { Button } from './ui/button';
 import { useUser } from '@clerk/nextjs';
 import MeetingTypeList from './MeetingTypeList';
-import { useRouter } from 'next/router'; // Import useRouter
 
 const AddItem = () => {
     const [openState, setOpenState] = useState(false);
     const { user } = useUser();
-    const router = useRouter(); // Initialize router
 
     function redirectorA() {
-        router.push('/askaquestion'); // Use router.push for navigation
+        // router.push('/askaquestion'); // Use router.push for navigation
+        console.log("hello")
     }
 
     return (
