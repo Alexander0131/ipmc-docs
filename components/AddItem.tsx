@@ -11,9 +11,12 @@ const AddItem = () => {
     const [openState, setOpenState] =  useState(false);
     const { user } = useUser();
 
-    function redirectorA(){
-        window.location.href = "/askaquestion"
-    }
+    function redirectorA() {
+        if (typeof window !== 'undefined') {
+          window.location.href = "/askaquestion";
+        }
+      }
+      
   return (
     <div className='container relative'>
         <Image
