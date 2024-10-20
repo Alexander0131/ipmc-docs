@@ -10,7 +10,6 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 const AskAQuest = () => {
-  const [textAreaVal, setTextAreaVal] = useState<string>("");
   const [editorContent, setEditorContent] = useState<string>('');
   const [blockLoader, setBlockLoader] = useState(false);
 
@@ -53,7 +52,6 @@ const AskAQuest = () => {
         <div></div>
       </div>
       <div className='flex items-center justify-center w-full'>
-        {textAreaVal}
         <Button
           className='bg-blue-1' disabled={editorContent.length <= 5}
           onClick={() => sendQuest()}
