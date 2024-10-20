@@ -1,4 +1,5 @@
 'use client'
+import { EditorProps } from '@/types/global';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import 'react-quill/dist/quill.snow.css'; // Ensure styles are loaded correctly
@@ -24,10 +25,6 @@ const formats = [
   'bold', 'italic', 'underline', 'strike',
   'align', 'code-block', 'color', 'background',
 ];
-
-interface EditorProps {
-  setEditorContent: (content: string) => void;
-}
 
 const EditorPage: React.FC<EditorProps> = ({ setEditorContent }) => {
   const [content, setContent] = useState('');
