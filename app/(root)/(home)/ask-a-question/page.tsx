@@ -9,8 +9,7 @@ import { useUser } from '@clerk/nextjs';
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const writeCode = " Write Code here ";
-const page = () => {
+const AskAQuest = () => {
   const [textAreaVal, setTextAreaVal] = useState<string>("");
   const [editorContent, setEditorContent] = useState<string>('');
   const [blockLoader, setBlockLoader] = useState(false);
@@ -67,4 +66,4 @@ const page = () => {
   );
 }
 
-export default page;
+export default AskAQuest;

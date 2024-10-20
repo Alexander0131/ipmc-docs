@@ -98,6 +98,9 @@ const MeetingTypeList = () => {
 
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
 
+  function redirector(){
+    window.location.href = '/recordings'
+  }
   
 
   return (
@@ -128,7 +131,7 @@ const MeetingTypeList = () => {
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Meeting Recordings"
-        handleClick={() => window.location.href = '/recordings'}
+        handleClick={() => redirector()}
       />
 
       {!callDetail ? (
