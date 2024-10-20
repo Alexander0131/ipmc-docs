@@ -12,6 +12,7 @@ const AddItem = () => {
 
     function redirectorA() {
         // router.push('/askaquestion'); // Use router.push for navigation
+        window.location.href = '/askaquestion';
         console.log("hello")
     }
 
