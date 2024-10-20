@@ -7,6 +7,9 @@ import React, { useEffect, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useUser } from '@clerk/nextjs';
+import { toast } from './ui/use-toast';
+import { v4 as uuidv4 } from 'uuid';
+import LoadAllAns from './LoadAllAns';
 
 const AnswerPlatform: React.FC<AnswerPlatformType> = ({ ansId, mainId }) => {
   const [ansData, setAnsData] = useState<AnswerDisType | null>(null);
@@ -17,6 +20,7 @@ const AnswerPlatform: React.FC<AnswerPlatformType> = ({ ansId, mainId }) => {
   const [userUnLiked, setUserUnLiked] = useState(false);
   const [mainAnsId, setMainAnsId] = useState<string | null>(null);
   const [ansIsOk, setAnsIsOk] = useState(false);
+  const [loadMoreAns, setLoadMoreAns] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const { user } = useUser();
 
@@ -121,27 +125,24 @@ const AnswerPlatform: React.FC<AnswerPlatformType> = ({ ansId, mainId }) => {
     }
 if(user){
 
-    if(!bestAns){
+  const recheck = await getAnswer(ansId);
+  console.log({recheck})
+    if(recheck.length <= 0){
         
         
         const answers: answerArray = {
-            id: "1",
+            id: uuidv4(),
             userId: user.id,
             ans: inputValue,
             like: [],
             unlike: [],
         };
-        
-        // const dataMove = {
-            //     questionId: ansId,
-            //     answers: answer,
-            // };
             
             await postNewAns(ansId, answers);
         }else{
             
             const answer: answerArray = {
-                id: `${bestAns.ans.length + 1}`,
+                id: uuidv4(),
                 userId: user.id,
                 ans: inputValue,
                 like: [],
@@ -149,12 +150,16 @@ if(user){
             };
             
             const dataMove = {
-                id: mainAnsId!,
+                id: recheck[0]._id!,
                 params: answer,
             };
             
-            await postAnAns(dataMove);
-            
+          const postState: boolean = await postAnAns(dataMove);
+          if(postState){
+            toast({
+              title: 'Answer added',
+            })
+          }
         }
     }
   }
@@ -214,7 +219,24 @@ if(user){
       ) : (
         <div>Be the first to answer</div>
       )}
+      {loadMoreAns &&
+        <div>
+          <LoadAllAns ansId={ansId} mainId={mainId}/>
+        </div>
+      }
       <div className="flex justify-center items-center gap-2">
+        <Button 
+          className='bg-blue-500' 
+          disabled={!bestAns}
+          onClick={() => setLoadMoreAns(!loadMoreAns)}
+          >
+            <Image
+              src={loadMoreAns ? '/icons/arrows-up-to-line.svg' : '/icons/arrows-down-to-line.svg'}
+              alt="all"
+              width={32}
+              height={32}
+            />
+        </Button>
         <Input
           placeholder="Answer Question"
           onChange={handleInputChange}
@@ -229,6 +251,7 @@ if(user){
           Send
         </Button>
       </div>
+
     </div>
   );
 };

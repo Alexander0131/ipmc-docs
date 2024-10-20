@@ -1,6 +1,5 @@
 import HomeQuest from '@/components/HomeQuest';
 import Latest from '@/components/Latest';
-import MeetingTypeList from '@/components/MeetingTypeList';
 import YoutubeEmbed from '@/components/Youtube';
   
 
@@ -29,7 +28,6 @@ const Home = async () => {
           </div>
         </div>
       </div>
-      <MeetingTypeList />
 
       <HomeQuest />
     </section>

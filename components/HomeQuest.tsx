@@ -25,15 +25,24 @@ const HomeQuest = () => {
 
   return (
     <div>
-      <h2>Latest Questions</h2>
+      <h1 className='text-lg underline italic'>Latest Questions</h1>
 
       <div>
         {questData ? (
           questData.map((item: HomeQuests) => (
             <div key={item._id} className='bg-dark-1 rounded-[10px] m-2 p-2 '>
-              <MiniProfile userId={item.asker} height={32} width={32}/>
-                <div className='ml-3'>
-                    <h3>{item.question}</h3>
+              <MiniProfile 
+                userId={item.asker} 
+                username={true} 
+                img={true} 
+                liveState={false} 
+                height={32} 
+                width={32}
+                textStyles=''
+              />
+                <div className='ml-6'>
+                <h3 dangerouslySetInnerHTML={{ __html: item.question }} />
+
                     <b>
                         <AnswerPlatform ansId={item.answerId} mainId={item._id} />
                     </b>

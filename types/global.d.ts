@@ -1,4 +1,5 @@
 import { answerArray } from "@/app/models/Answers";
+import { ReactNode } from "react";
 
 // set role
 export type Roles = 'instructor' | 'student' | 'prefect' | 'moderator' | 'admin';
@@ -56,6 +57,10 @@ export interface MiniProfileProps {
   userId: string; 
   height: number;
   width: number;
+  username: boolean;
+  img: boolean;
+  liveState: boolean;
+  textStyles: string;
 }
 
 export interface HomeQuests {
@@ -89,3 +94,33 @@ export interface likeType {
   id: string;
   params: answerArray;
 }
+
+// Add Modal
+
+export interface addModalType {
+  isOpen: boolean;
+  onClose: () => void;
+  children?: ReactNode;
+}
+
+export interface MeetingModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  className?: string;
+  children?: ReactNode;
+  handleClick?: () => void;
+  buttonText?: string;
+  instantMeeting?: boolean;
+  image?: string;
+  buttonClassName?: string;
+  buttonIcon?: string;
+}
+
+export interface QuestionType {
+    asker:string,
+    answerId:string,
+    question:string
+}
+
+

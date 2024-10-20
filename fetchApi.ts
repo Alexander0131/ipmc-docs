@@ -1,6 +1,7 @@
 import axios from "axios";
-import { editMeetingState, likeType, UpcomingType, User, userRole } from "./types/global";
+import { editMeetingState, likeType, QuestionType, UpcomingType, User, userRole } from "./types/global";
 import { answerArray } from "./app/models/Answers";
+import { toast } from "./components/ui/use-toast";
 
 
 
@@ -74,40 +75,36 @@ export const changeMeetingState = async (params: editMeetingState) => {
         
     }
 }
+// Get users
+export const fetchUsers = async (params?: string): Promise<User | User[] | undefined> => {
+    try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchusers`, {
+            params: { id: params }
+        });
 
-
-// get Users
- export const fetchUsers = async (params?: string): Promise<User | User[] | undefined> => {
-     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchusers`);
-        if (!response.ok) {
-            const errorText = await response.text(); 
-            console.error(`Error response from API: ${errorText}`); 
-            return;
-        }
-        
-      
-        const data: User[] = await response.json();
-
-        
-        if (params) {
-            return data.find((item: User) => item.id === params); 
-        }
-       
-        return data;
+        return response.data;
     } catch (error) {
-         
+        console.error('Error fetching users:', error);
     }
 };
-
 
 // Fetch Questions from api
 export const getHomeQuetions = async () => {
     try {
         const fetchAllQuetionsData = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/question/home`);
-        return fetchAllQuetionsData.data.reverse();
+        return fetchAllQuetionsData.data;
     } catch (error) {
         console.log(error)
+    }
+}
+
+// Send question to db
+export async function postQuest(params: QuestionType){
+    try {
+       await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/question`, params);
+        return true;
+    } catch (error) {
+        return false;
     }
 }
 
@@ -122,6 +119,18 @@ export const getAnswer = async (params: string) => {
     }
 }
 
+// fetch an answer to get id from api 
+export const getAnswerForId = async (params: string) => {
+    try {
+        const resData = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer/id?q=${params}`);
+
+        return resData.data;
+    } catch (error) {
+        return null
+    }
+}
+
+
 // like a question
 export async function likeAnAns(params: likeType){
     try {
@@ -135,16 +144,18 @@ export async function likeAnAns(params: likeType){
 
 // ans a question
 export async function postNewAns(paramId: string, params: answerArray){
-    console.log(params)
+    console.log("Hello hi")
+    console.log({paramId})
     const setData = {
         questionId: paramId,
         answers: params
     }
     try {
-        const resData = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer`, setData);
-        console.log(resData);
+         await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer`, setData);
+        toast({
+            title: 'Answer added',
+          })
     } catch (error) {
-        console.log(error)
     }
 }
 
@@ -153,23 +164,23 @@ export async function postNewAns(paramId: string, params: answerArray){
 export async function postAnAns(params: likeType){
     console.log(params)
     try {
-        const resData = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer`, params);
-        console.log(resData);
+         await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer`, params);
+        return true
     } catch (error) {
-        console.log(error)
+        return false
+    }
+}
+
+// delete an answer
+export async function deleteAns(paramId: string, ansId: string){
+    try {
+        await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questandans/answer/delete`, {paramId, ansId});
+    } catch (error) {
+        return null
     }
 }
 
 
-// // like a question
-// export const likeAQuest = async (_id: string, otherData: string[]) => {
-//     try {
-//         const like = await axios.put('/api/connectDb/api/questionmethod', {_id, like: otherData});
-//         return like.data;
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
 
 
 

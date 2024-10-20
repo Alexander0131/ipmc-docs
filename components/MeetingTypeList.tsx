@@ -101,7 +101,7 @@ const MeetingTypeList = () => {
   
 
   return (
-    <section className="flex gap-5 overflow-x-auto sm:flex-wrap sm:overflow-auto">
+    <section className="flex gap-5 flex-wrap items-center justify-center">
       {userRole !== 'student' &&
       <HomeCard
       img="/icons/add-meeting.svg"
@@ -109,11 +109,11 @@ const MeetingTypeList = () => {
       description="Start an instant meeting"
       handleClick={() => setMeetingState('isInstantMeeting')}
       />
-    }
+      }
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
-        description="via invitation link"
+        description="via invitation code"
         handleClick={() => setMeetingState('isJoiningMeeting')}
       />
       {userRole !== 'student' &&
@@ -128,7 +128,7 @@ const MeetingTypeList = () => {
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Meeting Recordings"
-        handleClick={() => router.push('/recordings')}
+        handleClick={() => window.location.href = '/recordings'}
       />
 
       {!callDetail ? (
@@ -187,10 +187,10 @@ const MeetingTypeList = () => {
         title="Type the link here"
         className="text-center"
         buttonText="Join Meeting"
-        handleClick={() => router.push(values.link)}
+        handleClick={() => router.push(`/meeting/${values.link}`)}
       >
         <Input
-          placeholder="Meeting link"
+          placeholder="Meeting Code"
           onChange={(e) => setValues({ ...values, link: e.target.value })}
           className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
         />

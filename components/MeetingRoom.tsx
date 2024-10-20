@@ -155,7 +155,7 @@ const MeetingRoom = () => {
         </div>
       </div>
       
-      <div className='hidden md:flex w-full fixed bottom-[20px] items-center justify-center'>
+      <div className='hidden md:flex w-full fixed bottom-[2px] items-center justify-center'>
 
       <div className="">
         <CallControls onLeave={() => router.push(`/`)} />

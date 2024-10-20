@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 // post
 export async function POST(req: NextRequest){
     await connectMongoDB();
-    console.log("posting quest")
     try {
         const body = await req.json();
         const {  asker, answerId, question}: IQuest = body;
@@ -20,6 +19,7 @@ export async function POST(req: NextRequest){
         const res = await QuestionModel.create(newQuest);
         return NextResponse.json(res)
     } catch (error) {
+        console.log(error)
         return NextResponse.json({error}, {status: 500})
     }
 }

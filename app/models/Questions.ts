@@ -15,6 +15,10 @@ const uploadSchema: Schema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    question: {
+        type: String,
+        required: true
     }
 }, {timestamps: true,
     collection: "Question"});

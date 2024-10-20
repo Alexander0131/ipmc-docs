@@ -16,18 +16,16 @@ const HomeCard = ({ className, img, title, description, handleClick }: HomeCardP
   return (
     <section
       className={cn(
-        'bg-dark-4 p-4 flex flex-col justify-between min-w-[250px] max-h-[140px] rounded-[14px] cursor-pointer',
+        'bg-inherit border-2 border-gray-600 h-[50px] flex gap-3 w-full items-center justify-center p-3 rounded-[10px]',
         className
       )}
       onClick={handleClick}
     >
-      <div className="flex-center glassmorphism size-12 rounded-[10px] p-2">
         <Image src={img} alt="meeting" width={27} height={27} />
-      </div>
       
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="text-lg font-normal">{description}</p>
+      <div className="flex gap-2 justify-start w-full">
+        <b className="font-bold">{title} </b> |
+        <p className="font-normal"> {description}</p>
       </div>
     </section>
   );
