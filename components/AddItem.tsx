@@ -11,8 +11,8 @@ const AddItem = () => {
     const [openState, setOpenState] =  useState(false);
     const { user } = useUser();
 
-    function redirector(){
-        window.location.href = "/ask-a-question"
+    function redirectorA(){
+        window.location.href = "/askaquestion"
     }
   return (
     <div className='container relative'>
@@ -30,7 +30,7 @@ const AddItem = () => {
         >
             <div>
             <div className='flex gap-3 flex-wrap items-start justify-center'>
-            <Button className='bg-inherit border-2 border-gray-600 h-[60px] flex flex-col items-center justify-center' onClick={() => redirector()}>
+            <Button className='bg-inherit border-2 border-gray-600 h-[60px] flex flex-col items-center justify-center' onClick={() => redirectorA()}>
                 <Image
                 src={'/icons/question.svg'}
                 alt='question'
