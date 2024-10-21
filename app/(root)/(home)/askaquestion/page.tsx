@@ -1,9 +1,19 @@
-'use client'
+'use client'; // Ensures the file is treated as client-side
+
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css'; // Ensure styles are loaded correctly
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+// Dynamic import of ReactQuill with type assertion
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }) as unknown as React.FC<{ 
+  value: string; 
+  onChange: (content: string) => void; 
+  modules: object; 
+  formats: string[]; 
+  theme: string; 
+  className: string; 
+  placeholder: string;
+}>;
 
 const modules = {
   toolbar: [
@@ -13,8 +23,8 @@ const modules = {
     [{ align: [] }],
     ['code-block'],
     [
-      { 'color': ['#FF0000', '#00FF00', '#0000FF', '#FFA500', '#800080', '#008080'] },
-      { 'background': ['#FFEB3B', '#E91E63', '#4CAF50', '#2196F3', '#FF9800', '#795548'] }
+      { color: ['#FF0000', '#00FF00', '#0000FF', '#FFA500', '#800080', '#008080'] },
+      { background: ['#FFEB3B', '#E91E63', '#4CAF50', '#2196F3', '#FF9800', '#795548'] }
     ],
   ],
 };
@@ -29,7 +39,7 @@ interface EditorProps {
   setEditorContent: (content: string) => void;
 }
 
-const EditorPage: React.FC<EditorProps> = ({ setEditorContent }: EditorProps ) => {
+const EditorPage: React.FC<EditorProps> = ({ setEditorContent }) => {
   const [content, setContent] = useState('');
 
   const handleChange = (content: string) => {
