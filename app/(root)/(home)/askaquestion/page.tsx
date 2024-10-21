@@ -1,19 +1,11 @@
 'use client'; // Ensures the file is treated as client-side
 
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css'; // Ensure styles are loaded correctly
 
 // Dynamic import of ReactQuill with type assertion
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }) as unknown as React.FC<{ 
-  value: string; 
-  onChange: (content: string) => void; 
-  modules: object; 
-  formats: string[]; 
-  theme: string; 
-  className: string; 
-  placeholder: string;
-}>;
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const modules = {
   toolbar: [
@@ -42,6 +34,7 @@ interface EditorProps {
 const EditorPage: React.FC<EditorProps> = ({ setEditorContent }) => {
   const [content, setContent] = useState('');
 
+  // Effect to dynamically load ReactQuill on client side
   const handleChange = (content: string) => {
     setContent(content);
     setEditorContent(content);
