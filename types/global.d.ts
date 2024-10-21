@@ -124,7 +124,3 @@ export interface QuestionType {
 }
 
 
-
-export interface EditorProps {
-  setEditorContent: (content: string) => void;
-}
