@@ -20,7 +20,7 @@ const AnswerPlatform: React.FC<AnswerPlatformType> = ({ ansId, mainId }) => {
   const [userUnLiked, setUserUnLiked] = useState(false);
   const [mainAnsId, setMainAnsId] = useState<string | null>(null);
   const [ansIsOk, setAnsIsOk] = useState(false);
-  const [loadMoreAns, setLoadMoreAns] = useState(true);
+  const [loadMoreAns, setLoadMoreAns] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const { user } = useUser();
 
