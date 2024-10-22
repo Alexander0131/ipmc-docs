@@ -1,8 +1,8 @@
 "use client";
-// import EditorPage from '@/components/AskQuestQuill';
+
 import BlockLoader from '@/components/BlockLoader';
 import { Button } from '@/components/ui/button';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { postQuest } from '@/fetchApi';
 import { QuestionType } from '@/types/global';
