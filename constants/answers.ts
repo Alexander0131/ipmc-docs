@@ -6,7 +6,7 @@ export const answer = [
             {
                 "id": "uhsduufkjjhsiojs",
                 "userId": "gqwfyajsguiohwe",
-                "ans": "Hyper Text Markup Language Hyper Text Markup Language Hyper Text Markup Language ",
+                "ans": "Hyper Text Markup Language Hyper Text Markup Language Hyper Text Markup Language",
                 "like": ["7983238925897", "y2398793u", "quiy783rqhwf", "278guq4tyty","user_2k5iBntGChZ4tDTrTGjx1gzTrf9"],
                 "unlike": ["ioh34tioht4", "q3o8yhow7t", "237rqwggwf7"]
             }
